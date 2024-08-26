@@ -1,4 +1,6 @@
+import PatientForm from "@/components/forms/PatientForm";
 import { Button } from "@/components/ui/button";
+import { Link } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
@@ -14,6 +16,16 @@ export default function Home() {
             className="mb-12 h-10 w-fit"
           />
   
+          <PatientForm />
+          
+          <div className="text-14-regular mt-20 flex justify-between">
+            <p className="justify-items-end text-dark-600 xl:text-left">
+              © 2024 CarePluse
+            </p>
+            <Link href="/?admin=true" className="text-green-500">
+              Admin
+            </Link>
+          </div>
           
         </div>
       </section>
