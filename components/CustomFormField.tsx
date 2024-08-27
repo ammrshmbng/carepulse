@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Form,
@@ -12,8 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
 import { FormFieldType } from "./forms/PatientForm";
+import Image from "next/image";
 
-interface CustomProps{
+interface CustomProps {
   control: Control<any>;
   name: string;
   label?: string;
@@ -28,27 +29,54 @@ interface CustomProps{
   fieldType: FormFieldType;
 }
 
-
-const CustomFormField = ({control,fieldType,name,label}: CustomProps) => {
-  return (
-      <FormField
-        control={control}
-        name={name}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Username</FormLabel>
-            <FormControl>
-              <Input placeholder="shadcn" {...field} />
-            </FormControl>
-            <FormDescription>
-              This is your public display name.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
+  switch (props.fieldType) {
+    case FormFieldType.INPUT:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+          {props.iconSrc && (
+            <Image
+              src={props.iconSrc}
+              height={24}
+              width={24}
+              alt={props.iconAlt || "icon"}
+              className="ml-2"
+            />
+          )}
+          <FormControl>
+            <Input
+              placeholder={props.placeholder}
+              {...field}
+              className="shad-input border-0"
+            />
+          </FormControl>
+        </div>
+      );
    
-  )
-}
+    default:
+      return null;
+  }
+};
 
-export default CustomFormField
+const CustomFormField = (props: CustomProps) => {
+  const { control, fieldType, name, label } = props;
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className="flex-1">
+          {fieldType !== FormFieldType.CHECKBOX && label && (
+            <FormLabel>{label}</FormLabel>
+          )}
+
+          <RenderField field={field} props={props} />
+
+          <FormMessage className="shad-error" />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+export default CustomFormField;
