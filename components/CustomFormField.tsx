@@ -18,7 +18,6 @@ import PhoneInput from "react-phone-number-input";
 import ReactDatePicker from "react-datepicker";
 import { E164Number } from "libphonenumber-js/core";
 
-
 import "react-datepicker/dist/react-datepicker.css";
 
 interface CustomProps {
@@ -95,6 +94,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
           </FormControl>
         </div>
       );
+    case FormFieldType.SKELETON:
+      return props.renderSkeleton ? props.renderSkeleton(field) : null;
     default:
       return null;
   }

@@ -133,6 +133,31 @@ const RegisterForm = ({ user }: { user: User }) => {
             />
           </div>
 
+          {/* <section className="mb-12 space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Medical Information</h2>
+          </div>
+        </section> */}
+
+        {/* Address & Occupation */}
+        <div className="flex flex-col gap-6 xl:flex-row">
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              control={form.control}
+              name="address"
+              label="Address"
+              placeholder="14 street, New york, NY - 5101"
+            />
+
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              control={form.control}
+              name="occupation"
+              label="Occupation"
+              placeholder=" Software Engineer"
+            />
+          </div>
+
         <SubmitButton isLoading={isLoading}>Submit</SubmitButton>
       </form>
     </Form>
