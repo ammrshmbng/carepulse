@@ -13,9 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
 import { FormFieldType } from "./forms/PatientForm";
 import Image from "next/image";
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import ReactDatePicker from "react-datepicker";
+import { E164Number } from "libphonenumber-js/core";
 
+
+import "react-datepicker/dist/react-datepicker.css";
 
 interface CustomProps {
   control: Control<any>;
@@ -56,19 +60,41 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         </div>
       );
     case FormFieldType.PHONE_INPUT:
-        return (
+      return (
+        <FormControl>
+          <PhoneInput
+            defaultCountry="ID"
+            placeholder={props.placeholder}
+            international
+            withCountryCallingCode
+            value={field.value as E164Number | undefined}
+            onChange={field.onChange}
+            className="input-phone"
+          />
+        </FormControl>
+      );
+    case FormFieldType.DATE_PICKER:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+          <Image
+            src="/assets/icons/calendar.svg"
+            height={24}
+            width={24}
+            alt="user"
+            className="ml-2"
+          />
           <FormControl>
-            <PhoneInput
-              defaultCountry="ID"
-              placeholder={props.placeholder}
-              international
-              withCountryCallingCode
-              value={field.value as E164Number | undefined}
-              onChange={field.onChange}
-              className="input-phone"
+            <ReactDatePicker
+              showTimeSelect={props.showTimeSelect ?? false}
+              selected={field.value}
+              onChange={(date: Date) => field.onChange(date)}
+              timeInputLabel="Time:"
+              dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
+              wrapperClassName="date-picker"
             />
           </FormControl>
-        );
+        </div>
+      );
     default:
       return null;
   }
