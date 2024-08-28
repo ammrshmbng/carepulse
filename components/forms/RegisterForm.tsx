@@ -10,18 +10,9 @@ import { useState } from "react";
 import { UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
+import { FormFieldType } from "./PatientForm";
 
-export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  PHONE_INPUT = "phoneInput",
-  CHECKBOX = "checkbox",
-  DATE_PICKER = "datePicker",
-  SELECT = "select",
-  SKELETON = "skeleton",
-}
-
-const RegisterForm = () => {
+const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -59,47 +50,54 @@ const RegisterForm = () => {
   };
   return (
     <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-6">
-      <section className="mb-12 space-y-4">
-        <h1 className="header">Hi there 👋</h1>
-        <p className="text-dark-700">Get started with appointments.</p>
-      </section>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex-1 space-y-12"
+      >
+        <section className="mb-12 space-y-4">
+          <h1 className="header">Welcome 👋</h1>
+          <p className="text-dark-700">Let us know more about yourself</p>
+        </section>
 
-      <CustomFormField
-        fieldType={FormFieldType.INPUT}
-        control={form.control}
-        name="name"
-        label="Full Name"
-        placeholder="John Doe"
-        iconSrc="/assets/icons/user.svg"
-        iconAlt="user"
-      />
+        <section className="mb-12 space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Personal Information</h2>
+          </div>
+        </section>
 
-      <CustomFormField
-        fieldType={FormFieldType.INPUT}
-        control={form.control}
-        name="email"
-        label="Email"
-        placeholder="johndoe@gmail.com"
-        iconSrc="/assets/icons/email.svg"
-        iconAlt="email"
-      />
+        <CustomFormField
+            fieldType={FormFieldType.INPUT}
+            control={form.control}
+            name="name"
+            label="Full Name"
+            placeholder="John Doe"
+            iconSrc="/assets/icons/user.svg"
+            iconAlt="user"
+          />
+        <div className="flex flex-col gap-6 xl:flex-row">
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              control={form.control}
+              name="email"
+              label="Email address"
+              placeholder="johndoe@gmail.com"
+              iconSrc="/assets/icons/email.svg"
+              iconAlt="email"
+            />
 
-      <CustomFormField
-        fieldType={FormFieldType.PHONE_INPUT}
-        control={form.control}
-        name="phone"
-        label="Phone number"
-        placeholder="(555) 123-4567"
-      />
-       
+            <CustomFormField
+              fieldType={FormFieldType.PHONE_INPUT}
+              control={form.control}
+              name="phone"
+              label="Phone Number"
+              placeholder="(555) 123-4567"
+            />
+          </div>
 
-     <SubmitButton isLoading={isLoading}>
-       Submit
-     </SubmitButton>
-    </form>
-  </Form>
-  )
-}
+        <SubmitButton isLoading={isLoading}>Submit</SubmitButton>
+      </form>
+    </Form>
+  );
+};
 
-export default RegisterForm
+export default RegisterForm;
