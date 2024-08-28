@@ -1,3 +1,4 @@
+"use server";
 import { ID,Query } from "node-appwrite";
 import { parseStringify } from "../utils";
 import {
@@ -74,9 +75,9 @@ export const registerPatient = async ({
         '66cd5ce20026612c784c',
         ID.unique(),
         {
-            identificationDocumentId: file?.$id ? file.$id : null,
-            identificationDocumentUrl: `https://cloud.appwrite.io/v1/storage/buckets/66cd5e0900055b337159/files/66cf191100260cff6c4a/view?project=66cd5ad900068dec136b` ,
-            ...patient,
+          identificationDocumentId: file?.$id ? file.$id : null,
+          identificationDocumentUrl: `https://cloud.appwrite.io/v1/storage/buckets/66cd5e0900055b337159/files/${file?.$id}/view?project=66cd5ad900068dec136b`,
+          ...patient,
         }
     );
 
