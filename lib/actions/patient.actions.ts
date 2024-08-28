@@ -65,20 +65,20 @@ export const registerPatient = async ({
           
           
 
-          file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
+          file = await storage.createFile('66cd5e0900055b337159', ID.unique(), inputFile);
       }
 
       // Create new patient document -> https://appwrite.io/docs/references/cloud/server-nodejs/databases#createDocument
       const newPatient = await databases.createDocument(
-          DATABASE_ID!,
-          PATIENT_COLLECTION_ID!,
-          ID.unique(),
-          {
-              identificationDocumentId: file?.$id || null,
-              identificationDocumentUrl: `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view?project=${PROJECT_ID}`,
-              ...patient,
-          }
-      );
+        '66cd5c5c0018ccb7c69c',
+        '66cd5ce20026612c784c',
+        ID.unique(),
+        {
+            identificationDocumentId: file?.$id ? file.$id : null,
+            identificationDocumentUrl: `https://cloud.appwrite.io/v1/storage/buckets/66cd5e0900055b337159/files/66cf191100260cff6c4a/view?project=66cd5ad900068dec136b` ,
+            ...patient,
+        }
+    );
 
       return parseStringify(newPatient);
   } catch (error) {
