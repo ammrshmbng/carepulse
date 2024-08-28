@@ -268,37 +268,66 @@ const RegisterForm = ({ user }: { user: User }) => {
         </section>
 
         <CustomFormField
-            fieldType={FormFieldType.SELECT}
-            control={form.control}
-            name="identificationType"
-            label="Identification Type"
-            placeholder="Select identification type"
-          >
-            {IdentificationTypes.map((type, i) => (
-              <SelectItem key={type + i} value={type}>
-                {type}
-              </SelectItem>
-            ))}
-          </CustomFormField>
+          fieldType={FormFieldType.SELECT}
+          control={form.control}
+          name="identificationType"
+          label="Identification Type"
+          placeholder="Select identification type"
+        >
+          {IdentificationTypes.map((type, i) => (
+            <SelectItem key={type + i} value={type}>
+              {type}
+            </SelectItem>
+          ))}
+        </CustomFormField>
 
-          <CustomFormField
-            fieldType={FormFieldType.INPUT}
+        <CustomFormField
+          fieldType={FormFieldType.INPUT}
+          control={form.control}
+          name="identificationNumber"
+          label="Identification Number"
+          placeholder="123456789"
+        />
+
+        <CustomFormField
+          fieldType={FormFieldType.SKELETON}
+          control={form.control}
+          name="identificationDocument"
+          label="Scanned Copy of Identification Document"
+          renderSkeleton={(field) => (
+            <FormControl>
+              <FileUploader files={field.value} onChange={field.onChange} />
+            </FormControl>
+          )}
+        />
+
+        <section className="mb-12 space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Consent and Privacy</h2>
+          </div>
+        </section>
+
+        <CustomFormField
+            fieldType={FormFieldType.CHECKBOX}
             control={form.control}
-            name="identificationNumber"
-            label="Identification Number"
-            placeholder="123456789"
+            name="treatmentConsent"
+            label="I consent to receive treatment for my health condition."
           />
 
           <CustomFormField
-            fieldType={FormFieldType.SKELETON}
+            fieldType={FormFieldType.CHECKBOX}
             control={form.control}
-            name="identificationDocument"
-            label="Scanned Copy of Identification Document"
-            renderSkeleton={(field) => (
-              <FormControl>
-                <FileUploader files={field.value} onChange={field.onChange} />
-              </FormControl>
-            )}
+            name="disclosureConsent"
+            label="I consent to the use and disclosure of my health
+            information for treatment purposes."
+          />
+
+          <CustomFormField
+            fieldType={FormFieldType.CHECKBOX}
+            control={form.control}
+            name="privacyConsent"
+            label="I acknowledge that I have reviewed and agree to the
+            privacy policy"
           />
 
         <SubmitButton isLoading={isLoading}>Submit</SubmitButton>
