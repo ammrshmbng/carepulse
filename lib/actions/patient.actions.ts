@@ -1,6 +1,5 @@
 import { ID,Query } from "node-appwrite";
 import { parseStringify } from "../utils";
-import {InputFile} from "node-appwrite/file"
 import {
   BUCKET_ID,
   DATABASE_ID,
@@ -59,12 +58,12 @@ export const registerPatient = async ({
       // Upload file ->  // https://appwrite.io/docs/references/cloud/client-web/storage#createFile
       let file;
       if (identificationDocument) {
-          const inputFile =
-              identificationDocument &&
-              InputFile.fromBuffer(
-                  identificationDocument?.get("blobFile") as Blob,
-                  identificationDocument?.get("fileName") as string
-              );
+        const inputFile = new File(
+          [identificationDocument?.get("blobFile") as Blob],
+          identificationDocument?.get("fileName") as string
+          );
+          
+          
 
           file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
       }
