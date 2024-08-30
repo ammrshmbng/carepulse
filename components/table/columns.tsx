@@ -24,6 +24,34 @@ export type Payment = {
 
 export const columns: ColumnDef<Payment>[] = [
   {
+    header: "#",
+    cell: ({ row }) => {
+      return <p className="text-14-medium ">{row.index + 1}</p>;
+    },
+  },
+  
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "amount",
+    header: () => <div className="text-right">Amount</div>,
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("amount"));
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(amount);
+
+      return <div className="text-right font-medium">{formatted}</div>;
+    },
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
       const payment = row.original
@@ -49,27 +77,6 @@ export const columns: ColumnDef<Payment>[] = [
           </DropdownMenuContent>
         </DropdownMenu>
       )
-    },
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
     },
   },
 ];
