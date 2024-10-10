@@ -20,6 +20,12 @@ const config = {
       },
     },
     extend: {
+      backgroundColor: {
+        background: 'var(--background)',
+      },
+      textColor: {
+        foreground: 'var(--foreground)',
+      },
       colors: {
         green: {
           500: "#24AE7C",
