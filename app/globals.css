@@ -372,3 +372,11 @@ body {
   @apply bg-white text-black dark:bg-gray-900 dark:text-white;
 }
 
+.bdr-1{
+  border: 1px solid red;
+}
+
+.bdr-2 {
+  border: 1px solid blue;
+}
+
