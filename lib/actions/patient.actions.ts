@@ -90,8 +90,8 @@ export const registerPatient = async ({
 export const getPatient = async (userId: string) => {
   try {
       const patients = await databases.listDocuments(
-         '66cd5c5c0018ccb7c69c',
-          '66cd5ce20026612c784c',
+        DATABASE_ID!,
+        PATIENT_COLLECTION_ID!,
           [Query.equal("userId", [userId])]
       );
 

@@ -11,8 +11,8 @@ export const createAppointment = async (
 ) => {
   try {
     const newAppointment = await databases.createDocument(
-      '66cd5c5c0018ccb7c69c',
-      '66cd5d9d003bc1edc6eb',
+      DATABASE_ID!,
+      APPOINTMENT_COLLECTION_ID!,
       ID.unique(),
       appointment
     );
