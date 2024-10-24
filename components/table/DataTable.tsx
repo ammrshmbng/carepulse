@@ -33,7 +33,13 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 5, // Ubah jadi 20 baris per halaman
+      },
+    },
   })
+
 
   return (
     <div className="data-table">
